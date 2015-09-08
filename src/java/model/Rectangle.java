@@ -9,15 +9,15 @@ package model;
  *
  * @author alex
  */
-public class Rectangle {
+public class Rectangle implements ShapeStrategy{
     
-    private double length, width, area;
+    private double length, height, area;
     
     public Rectangle(){};
-    public Rectangle(double length, double width){
+    public Rectangle(double length, double height){
         setLength(length);
-        setWidth(width);
-        area = length * width;
+        setHeight(height);
+        area = length * height;
     }
 
     public double getLength() {
@@ -28,21 +28,24 @@ public class Rectangle {
         this.length = length;
     }
 
-    public double getWidth() {
-        return width;
+    public double getHeight() {
+        return height;
     }
 
-    public final void setWidth(double width) {
-        this.width = width;
+    public final void setHeight(double height) {
+        this.height = height;
     }
     
-    public double getAreaOfRectangle(){
+    @Override
+    public double getArea(){
         return area;
     }
 
     @Override
     public String toString() {
-        return "The area of the Rectangle is " + area + " units";
+        return "The base is " + length + " units." +
+                "\nThe height is " + height + " units," + 
+                "\nThe area is " + area + " units.";
     }
  
     

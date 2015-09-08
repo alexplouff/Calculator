@@ -9,11 +9,12 @@ package model;
  *
  * @author alex
  */
-public class Circle {
+public class Circle implements ShapeStrategy{
     
     private double radius, area;
 
-    public Circle(double radius, double area) {
+    public Circle(){};
+    public Circle(double radius) {
         setRadius(radius);
         area = Math.PI * Math.pow(area, 2);
     }
@@ -26,13 +27,15 @@ public class Circle {
         this.radius = radius;
     }
 
-    public double getAreaOfCircle() {
+    @Override
+    public double getArea() {
         return area;
     }
     
     @Override
     public String toString(){
-        return "The area of the circle is " + area + " units";
+        return "The radius is: " + radius + " units.\n"+
+                "The area of the circle is " + area + " units";
     }
     
     

@@ -9,7 +9,7 @@ package model;
  *
  * @author alex
  */
-public class Triangle {
+public class Triangle implements ShapeStrategy{
     
     private double base, height, area;
     
