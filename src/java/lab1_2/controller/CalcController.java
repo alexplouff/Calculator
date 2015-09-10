@@ -45,8 +45,8 @@ public class CalcController extends HttpServlet {
             String str_height = request.getParameter("height");
             String str_base = request.getParameter("base");
 
-            double height = Double.valueOf(str_height);
-            double base = Double.valueOf(str_base);
+            String height = str_height;
+            String base = str_base;
             
             Rectangle rectangle = new Rectangle(base, height);
             request.setAttribute("rectangle", rectangle);

@@ -13,5 +13,7 @@ public interface ShapeStrategy {
     
     public abstract double getArea();
     
+    public abstract void setArea();
+    
     public abstract String toString();
 }

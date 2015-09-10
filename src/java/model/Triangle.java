@@ -12,34 +12,53 @@ package model;
 public class Triangle implements ShapeStrategy{
     
     private double base, height, area;
+    private final static String DIGIT_REG_EX = "\\d+";
     
     public Triangle(){};
-    public Triangle(double base, double height){
+    public Triangle(String base, String height){
         setBase(base);
         setHeight(height);
-        area = (base*height)/2;
+        setArea();
     }
 
     public double getBase() {
         return base;
     }
 
-    public final void setBase(double base) {
-        this.base = base;
+    public final void setBase(String base) throws IllegalArgumentException{
+        if(base.matches(DIGIT_REG_EX)){
+            this.base = Double.valueOf(base);
+        } else {
+            throw new IllegalArgumentException("Enter a Number");
+        }
     }
-
     public double getHeight() {
         return height;
     }
 
-    public final void setHeight(double height) {
-        this.height = height;
+    public final void setHeight(String height) throws IllegalArgumentException{
+        if(height.matches(DIGIT_REG_EX)){
+            this.height = Double.valueOf(height);
+        } else {
+            throw new IllegalArgumentException("Enter a Number");
+        }
     }
     
+    @Override
+    public void setArea() {
+        if(height > 0 && base > 0  ){
+            area = (base * height)/2;
+        } else {
+            area = 000;
+        }
+    }
+    
+    @Override
     public double getArea(){
         return area;
     }
     
+    @Override
     public String toString(){
         return "The base is " + base + " units." +
                 "\nThe height is " + height + " units," + 

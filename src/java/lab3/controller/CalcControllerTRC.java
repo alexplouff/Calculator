@@ -6,17 +6,13 @@
 package lab3.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Circle;
-import model.Rectangle;
-import model.ShapeStrategy;
-import model.Triangle;
+import model.ShapeService;
 
 /**
  *
@@ -43,29 +39,42 @@ public class CalcControllerTRC extends HttpServlet {
         
         String shapeSelection = request.getParameter("shape");
         
+        
         if(shapeSelection != null){
-            ShapeStrategy shape = null;
-            String result = "";
+            ShapeService shapeService = new ShapeService();
+            double area = 0;
             switch(shapeSelection){
                 
                 case "rectangle":
-                    double rHeight = Double.valueOf(request.getParameter("rectHeight"));
-                    double rWidth = Double.valueOf(request.getParameter("rectWidth"));
-                    shape = new Rectangle(rHeight, rWidth);
-                    request.setAttribute("shape", shape);
+                    try{
+                    String rHeight = request.getParameter("rectHeight");
+                    String rWidth = request.getParameter("rectWidth");
+                    area = shapeService.getRectangleArea(rHeight, rWidth);
+                    request.setAttribute("rectangle", area);
+                    } catch (IllegalArgumentException ex){
+                        request.setAttribute("rectangle", ex.getLocalizedMessage());
+                    }
                     break;
                 
                 case "triangle":
-                    double tHeight = Double.valueOf(request.getParameter("trianlgeHeight"));
-                    double tBase = Double.valueOf(request.getParameter("triangleBase"));
-                    shape = new Triangle(tBase, tHeight);
-                    request.setAttribute("shape", shape);
+                    try {
+                    String tHeight = request.getParameter("trianlgeHeight");
+                    String tBase = request.getParameter("triangleBase");
+                    area = shapeService.getTriangleArea(tHeight, tBase);
+                    request.setAttribute("triangle", area);
+                    } catch(IllegalArgumentException ex) {
+                        request.setAttribute("triangle", ex.getLocalizedMessage());
+                    }
                     break;
                     
                 case "circle":
-                    double radius = Double.valueOf(request.getParameter("radius"));
-                    shape = new Circle(radius);
-                    request.setAttribute("shape", shape);
+                    try{
+                    String radius = request.getParameter("radius");
+                    area = shapeService.getCircleArea(radius);
+                    request.setAttribute("circle", area);
+                    } catch(IllegalArgumentException ex){
+                        request.setAttribute("circle", ex.getLocalizedMessage());
+                    }
                     break;
                 
                 default :

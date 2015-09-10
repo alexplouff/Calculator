@@ -15,20 +15,24 @@ public class ShapeService {
     
     public ShapeService(){};
     
-    public ShapeService(ShapeStrategy shape){
-        setShape(shape);
-    }
 
     public ShapeStrategy getShape() {
         return shape;
     }
 
-    public final void setShape(ShapeStrategy shape) {
-        this.shape = shape;
+    public double getTriangleArea(String height, String base) throws IllegalArgumentException{
+        Triangle t = new Triangle(height, base);
+        return t.getArea();
     }
     
-    public double getAreaOfShape(ShapeStrategy shape){
-        return shape.getArea();
+    public double getRectangleArea(String height, String base) throws IllegalArgumentException{
+        Rectangle r = new Rectangle(height, base);
+        return r.getArea();
     }
     
+    public double getCircleArea(String radius) throws IllegalArgumentException{
+        Circle c = new Circle(radius);
+        return c.getArea();
+    
+    }
 }
