@@ -31,13 +31,7 @@
             HTML Ternary If ..PHP?
             No static variables?
         -->
-
-        <% ShapeStrategy shape = (ShapeStrategy) request.getAttribute("shape");
-            String shapeClass = null;
-            if (shape != null) {
-                shapeClass = String.valueOf(shape.getClass()).substring(12);
-            }
-        %>
+ 
 
         <div id="rectangleContainer" class="row">
 
@@ -70,7 +64,7 @@
             <form class="col-md-4 col-md-offset-1" id="triangleForm" name="triangleForm" method="POST" action="trcCalc?shape=triangle">
 
                 <table id="triangleTable" >
-                    <thead>Enter Width and Height for the area of a Rectangle</thead>
+                    <thead>Enter Width and Height for the area of a Triangle</thead>
                     <tbody>
                         <tr>
                             <td>Enter Base</td>
@@ -97,7 +91,7 @@
             <form class="col-md-4 col-md-offset-1" id="circleForm" name="circleForm" method="POST" action="trcCalc?shape=circle">
 
                 <table id="circleTable" >
-                    <thead>Enter Width and Height for the area of a Rectangle</thead>
+                    <thead>Enter Width and Height for the area of a Circle</thead>
                     <tbody>
                         <tr>
                             <td>Enter Radius</td>

@@ -24,14 +24,14 @@ public class Circle implements ShapeStrategy{
         return radius;
     }
     
+    @Override
     public final void setArea(){
-        area = radius * Math.PI * Math.pow(area, 2);
+        area = Math.PI * Math.pow(radius, 2);
     }
 
     public final void setRadius(String radius) throws IllegalArgumentException{
         if(radius.matches(DIGIT_REG_EX)){
             this.radius = Double.valueOf(radius);
-            setArea();
         } else {
             throw new IllegalArgumentException("Enter a Number");
         }

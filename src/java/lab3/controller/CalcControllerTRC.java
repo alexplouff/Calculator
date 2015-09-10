@@ -6,13 +6,15 @@
 package lab3.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ShapeService;
+import model.CalculatorService;
 
 /**
  *
@@ -22,7 +24,7 @@ import model.ShapeService;
 public class CalcControllerTRC extends HttpServlet {
 
     private final static String RESULT_PAGE = "lab3Home.jsp";
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,56 +37,60 @@ public class CalcControllerTRC extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
         String shapeSelection = request.getParameter("shape");
-        
-        
-        if(shapeSelection != null){
-            ShapeService shapeService = new ShapeService();
-            double area = 0;
-            switch(shapeSelection){
-                
+        CalculatorService service;
+
+        if (shapeSelection != null) {
+            List<String> str_digits = new ArrayList<>();
+            switch (shapeSelection) {
+
                 case "rectangle":
-                    try{
-                    String rHeight = request.getParameter("rectHeight");
-                    String rWidth = request.getParameter("rectWidth");
-                    area = shapeService.getRectangleArea(rHeight, rWidth);
-                    request.setAttribute("rectangle", area);
-                    } catch (IllegalArgumentException ex){
+                    try {
+                        int rectangleFlag = 1;
+                        str_digits.add(request.getParameter("rectHeight"));
+                        str_digits.add(request.getParameter("rectWidth"));
+                        service = new CalculatorService(str_digits);
+                        request.setAttribute("rectangle",
+                                service.getShapeArea(rectangleFlag));
+                    } catch (IllegalArgumentException ex) {
                         request.setAttribute("rectangle", ex.getLocalizedMessage());
                     }
                     break;
-                
+
                 case "triangle":
                     try {
-                    String tHeight = request.getParameter("trianlgeHeight");
-                    String tBase = request.getParameter("triangleBase");
-                    area = shapeService.getTriangleArea(tHeight, tBase);
-                    request.setAttribute("triangle", area);
-                    } catch(IllegalArgumentException ex) {
+                        int triangleFlag = 2;
+                        str_digits.add(request.getParameter("trianlgeHeight"));
+                        str_digits.add(request.getParameter("triangleBase"));
+                        service = new CalculatorService(str_digits);
+                        request.setAttribute("triangle",
+                                service.getShapeArea(triangleFlag));
+                    } catch (IllegalArgumentException ex) {
                         request.setAttribute("triangle", ex.getLocalizedMessage());
                     }
                     break;
-                    
+
                 case "circle":
-                    try{
-                    String radius = request.getParameter("radius");
-                    area = shapeService.getCircleArea(radius);
-                    request.setAttribute("circle", area);
-                    } catch(IllegalArgumentException ex){
+                    try {
+                        int circleFlag = 3;
+                        str_digits.add(request.getParameter("radius"));
+                        service = new CalculatorService(str_digits);
+                        request.setAttribute("circle",
+                        service.getShapeArea(circleFlag));
+                    } catch (IllegalArgumentException ex) {
                         request.setAttribute("circle", ex.getLocalizedMessage());
                     }
                     break;
-                
-                default :
+
+                default:
                     String status = "Either something went wrong or Operator Error. "
-                    + "Try again.";
-            request.setAttribute(status, "status");
-                    
+                            + "Try again.";
+                    request.setAttribute(status, "status");
+
             }
-        } 
-        
+        }
+
         RequestDispatcher view = request.getRequestDispatcher(RESULT_PAGE);
         view.forward(request, response);
     }
